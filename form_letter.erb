@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset='UTF-8'>
+  <title>Thank You!</title>
+</head>
+<body>
+  <h1>Thanks <%= name %></h1> <!--executes and displays result-->
+  <p>Thanks for coming to our conference.  We couldn't have done it without you!</p>
+
+  <p>
+    Political activism is at the heart of any democracy and your voice needs to be heard.
+    Please consider reaching out to your following representatives:
+  </p>
+
+  <table>
+    <!--This is also updated-->
+    <% if legislators.kind_of?(Array) %> <!--executes but does not output results; checking if legislators variable is an array-->
+      <!--if it is an array, we ouput name and website url of each legislator-->
+      <tr><th>Name</th><th>Website</th></tr>
+        <% legislators.each do |legislator| %> 
+        <tr>
+          <td><%= "#{legislator.name}" %></td>
+          <td><%= "#{legislator.urls.join(" ")}" unless legislator.urls.nil? %></td>
+        </tr>
+        <% end %>
+    <!--if it is not an array, legislators_by_zipcode method entered rescue clause,
+        which outputs a string; we want to display that string-->
+    <% else %>
+      <th></th>
+      <td><%= "#{legislators}" %></td>
+    <% end %>
+  </table>
+</body>
+</html>
